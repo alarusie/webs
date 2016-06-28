@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20160628 00:24:20.315" generator="Robot 3.0 (Python 2.7.6 on linux2)">
+<suite source="/root/workspace/code/myweb/robotframework-scripts/system_api_test_suite/system_api_test_suite.robot" id="s1" name="System Api Test Suite">
+<test id="s1-t1" name="login_testCase">
+<kw name="Get a request for login">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>Land</arg>
+<arg>${login_SiteUrl}</arg>
+</arguments>
+<msg timestamp="20160628 00:24:20.481" level="INFO">Creating Session using : alias=Land, url=http://testapi.landpotential.org:8080/auth/api_login?email=Landpks%40gmail.com&amp;password=12345, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160628 00:24:20.482" starttime="20160628 00:24:20.481"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>Land</arg>
+<arg>/</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160628 00:24:20.488" level="INFO">Starting new HTTP connection (1): testapi.landpotential.org</msg>
+<msg timestamp="20160628 00:24:21.119" level="INFO">Get Request using : alias=Land, uri=/, headers=None </msg>
+<msg timestamp="20160628 00:24:21.119" level="INFO">${resp} = &lt;Response [500]&gt;</msg>
+<status status="PASS" endtime="20160628 00:24:21.119" starttime="20160628 00:24:20.482"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>500</arg>
+</arguments>
+<msg timestamp="20160628 00:24:21.120" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160628 00:24:21.120" starttime="20160628 00:24:21.119"></status>
+</kw>
+<status status="PASS" endtime="20160628 00:24:21.120" starttime="20160628 00:24:20.480"></status>
+</kw>
+<status status="PASS" endtime="20160628 00:24:21.120" critical="yes" starttime="20160628 00:24:20.479"></status>
+</test>
+<status status="PASS" endtime="20160628 00:24:21.122" starttime="20160628 00:24:20.316"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="System Api Test Suite" pass="1">System Api Test Suite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

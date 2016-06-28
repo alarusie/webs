@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+     <script type="text/javascript">
+       $(document).ready(function() {
+
+         $("#runtest-string").click(function(e) {
+           async: false;
+           $('button').prop('disabled', true);
+           $.post("/runtest");
+            .done(function(string) {
+                if(string != '') {
+                    $('button').prop('disabled', false);
+                }
+            });
+           e.preventDefault();
+         });
+       });
+     </script>
+   </head>
+   <body>
+      <table border="0">
+         <tr>
+            <td>
+               <select>
+  	          <option value="DeleteAPI">Delete API</option>
+  	          <option value="GetAPI">Get API</option>
+  	          <option value="LandCoverAPI">LandCover API</option>
+  	          <option value="LandInfoAPI">LandInfo API</option>
+                  <option value="LocalClimateAPI">Local Climate API</option>
+                  <option value="LoginAPI">Login API</option>
+                  <option value="PutAPI">Put API</option>
+                  <option value="SystemAPI">System API</option>
+                  <option value="UpdateAPI">Update API</option>
+              </select>
+           </td>
+        </tr>
+        <tr>
+           <td>
+              <button id="runtest-string">Run a test now!</button></td>
+           <td>
+              <form action="/report">
+                 <input type="submit" value="View report file">
+              </form></td>
+           <td>
+              <form action="/log">
+                 <input type="submit" value="View log file">
+              </form>
+           <td>
+        </tr>
+     </table>
+   </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+   <head>
+     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+     <script type="text/javascript">
+       $(document).ready(function() {
+        
+        var animate;
+        var value;
+        
+        function fireit() {
+           var progressbar = $('#progressbar'),
+               max = progressbar.attr('max'),
+               time = (1000/max)*5,    
+               value = progressbar.val(),
+               sec = value;
+ 
+           var loading = function() {
+              value += 1;
+              //sec += 1;
+              addValue = progressbar.val(value);
+         
+              $('.progress-value').html(value + '%');
+ 
+              if (value == max) {
+                     value = 0;
+                     addValue = progressbar.val(value);   
+                     $('.progress-value').html(value + '%');
+              }
+           };
+ 
+           animate = setInterval(function() {
+              loading();
+           }, time);
+        };
+        
+        $("#generate-string").click(function(e) {
+           $('#progressbar').val(0);
+           fireit();
+           async: false;
+           $('button').prop('disabled', true);
+           $('input').prop('disabled', true);
+           $.post("/luncher", {"url": $( "#single" ).val()})
+            .done(function(string) {
+               if(string != '') {
+                  $('button').prop('disabled', false);
+                  $('input').prop('disabled', false);
+                  clearInterval(animate);
+                  $('#progressbar').val(100);
+                  $('.progress-value').html(100 + '%');
+               }
+            });
+           e.preventDefault();
+         });
+       });
+     </script>
+   </head>
+   <body align="left">
+      <table>
+         <tr>
+            <td>Please select a test to run:</td>
+            <td>
+               <select id="single">
+                  <option value="delete_api_test_suite/delete_api_test_suite.robot">Delete API</option>
+                  <option value="get_api_test_suite/get_api_test_suite.robot">Get API</option>
+                  <option value="landcover_api_test_suite/landcover_api_test_suite.robot">LandCover API</option>
+                  <option value="landinfo_api_test_suite/landinfo_api_test_suite.robot">LandInfo API</option>
+                  <option value="localclimate_api_test_suite/localclimate_api_test_suite.robot">Local Climate API</option>
+                  <option value="login_api_test_suite/login_api_test_suite.robot">Login API</option>
+                  <option value="put_api_test_suite/put_api_test_suite.robot">Put API</option>
+                  <option value="system_api_test_suite/system_api_test_suite.robot">System API</option>
+                  <option value="update_api_test_suite/update_api_test_suite.robot">Update API</option>
+               </select>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <div>
+	          <progress id="progressbar" value="0" max="100"></progress>
+		  <span class="progress-value">0sec</span>
+	       </div>
+            </td>
+         </tr>
+         <tr><td><button id="generate-string">Run a test!</button></td></tr>
+         <tr>
+            <td>
+               <form action="/report_html">
+                  <input id="btnReport" type="submit" value="View report file">
+               </form>
+            </td>
+         <tr>
+            <td>
+               <form action="/log_html">
+                  <input id="btnLog" type="submit" value="View log file">
+               </form>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <form action="/chart">
+                  <input id="btnchart" type="submit" value="chart">
+               </form>
+            </td>
+         </tr>
+      </table>
+      <p>
+         <br></br>
+         <br></br>
+         <br></br>
+         <strong> To run a test,</strong> please select a desired test from select box and then hit "Run a test!" button.
+         <br></br> <Strong>Reports</strong> belong to last test you run.
+      </p>
+   </body>
+</html>
