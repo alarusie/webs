@@ -1,5 +1,5 @@
-# AutoWebTT
-An automated end-to-end web testing tool to measure the performance and the connectivity of LandPKS API.
+# WebT
+WebT is an automated end-to-end web testing tool that measures the performance and the connectivity of LandPKS API
 ## Developers
 - Essa Imhmed
 
